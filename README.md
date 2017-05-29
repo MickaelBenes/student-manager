@@ -10,7 +10,7 @@ It contains two modules :
 
 The only purpose of this was to train myself on Java, discover Spring and Angular 2. And also REST services. Was a nice way to see it all. :)
 
-Might do the front app with Angular JS too, 'cause at the moment companies seem to be using it more than Angular 2+.  
+Might do the front app with AngularJS too, 'cause at the moment companies seem to be using it more than Angular 2+.  
 I only base that on my own experience. I was looking for a new job some time ago and I came across many offers of an AngularJS developer, really not Angular 2+ (yeah I asked during the interview).
 
 I mainly used :
