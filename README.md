@@ -3,10 +3,10 @@
 Fullstack application allowing professors to manage their students' skills in computer science.
 
 It contains two modules :
-*	** student-manager-restapi **  
-	A RESTfull API written in Java with ** Spring Boot **.
-*	** student-manager-site  **  
-	An ** Angular 4 ** app consuming the API.
+*	**student-manager-restapi**  
+	A RESTfull API written in Java with **Spring Boot**.
+*	**student-manager-site**  
+	An **Angular 4** app consuming the API.
 
 The only purpose of this was to train myself on Java, discover Spring and Angular 2. And also REST services. Was a nice way to see it all. :)
 
