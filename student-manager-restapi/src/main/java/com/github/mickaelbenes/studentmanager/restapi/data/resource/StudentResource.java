@@ -14,11 +14,11 @@ public class StudentResource extends ResourceSupport {
 	
 	public StudentResource( Student student ) {
 		this.student	= student;
-		Long id			= this.student.getId();
+		String username	= this.student.getProfessor().getUsername();
 		
 		this.add( linkTo(
-				methodOn( StudentRestController.class, id )
-				.get( id )
+				methodOn( StudentRestController.class, username )
+				.get( () -> username, this.student.getId() )
 			).withSelfRel()
 		);
 	}

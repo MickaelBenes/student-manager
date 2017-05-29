@@ -15,8 +15,8 @@ public class Professor extends Person implements Serializable {
 	@Column( name = "username" )
 	private String	username;
 
-	@Column( name = "password" )
 	@JsonIgnore
+	@Column( name = "password" )
 	private String	password;
 	
 	public Professor( String username, String password, String firstName, String lastName ) {
@@ -31,19 +31,19 @@ public class Professor extends Person implements Serializable {
 	 */
 	public Professor() {}
 	
-	protected String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 	
-	protected void setUsername( String username ) {
+	public void setUsername( String username ) {
 		this.username = username;
 	}
 	
-	protected String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 	
-	protected void setPassword( String password ) {
+	public void setPassword( String password ) {
 		this.password = password;
 	}
 	
