@@ -8,6 +8,6 @@ import com.github.mickaelbenes.studentmanager.restapi.data.entity.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
 	
-	Collection<Student> findByLastName( String lastName );
+	Collection<Student> findByProfessorUsername( String lastName );
 
 }

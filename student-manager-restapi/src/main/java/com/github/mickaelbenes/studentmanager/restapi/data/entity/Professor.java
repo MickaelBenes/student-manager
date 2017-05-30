@@ -1,16 +1,18 @@
 package com.github.mickaelbenes.studentmanager.restapi.data.entity;
 
-import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table( name = "professor" )
-public class Professor extends Person implements Serializable {
+public class Professor extends Person {
 	
 	@Column( name = "username" )
 	private String	username;
@@ -18,6 +20,9 @@ public class Professor extends Person implements Serializable {
 	@JsonIgnore
 	@Column( name = "password" )
 	private String	password;
+	
+	@OneToMany( mappedBy = "professor" )
+	private Set<Student> students = new HashSet<>();
 	
 	public Professor( String username, String password, String firstName, String lastName ) {
 		super( firstName, lastName );
@@ -45,6 +50,14 @@ public class Professor extends Person implements Serializable {
 	
 	public void setPassword( String password ) {
 		this.password = password;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents( Set<Student> students ) {
+		this.students = students;
 	}
 	
 }
