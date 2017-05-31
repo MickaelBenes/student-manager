@@ -35,7 +35,7 @@ public class StudentRestController {
 	}
 	
 	@RequestMapping( method = RequestMethod.GET )
-	public Collection<Student> get( @PathVariable String profId ) {
+	public Collection<Student> getStudents( @PathVariable String profId ) {
 		this.validateProfessor( profId );
 		
 		return this.studentRepo.findByProfessorUsername( profId );
@@ -49,7 +49,7 @@ public class StudentRestController {
 	}
 	
 	@RequestMapping( method = RequestMethod.POST )
-	ResponseEntity<?> add( @PathVariable String profId, @RequestBody Student input ) {
+	ResponseEntity<?> addStudent( @PathVariable String profId, @RequestBody Student input ) {
 		this.validateProfessor( profId );
 		
 		return this.professorRepo
@@ -73,7 +73,7 @@ public class StudentRestController {
 	}
 
 	@RequestMapping( method = RequestMethod.POST, value = "/{studentId}" )
-	public ResponseEntity<?> addSkill( @PathVariable String profId, @PathVariable Long studentId, @RequestBody Skill input ) {
+	public ResponseEntity<?> addSkillToStudent( @PathVariable String profId, @PathVariable Long studentId, @RequestBody Skill input ) {
 		this.validateProfessor( profId );
 		Student student = this.studentRepo.findOne( studentId );
 		

@@ -20,7 +20,7 @@ public class Skill {
 	@Id
 	@Column( name = "id" )
 	@GeneratedValue
-	private int id;
+	private Long id;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -40,11 +40,11 @@ public class Skill {
 
 	public Skill() {}
 
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId( int id ) {
+	public void setId( Long id ) {
 		this.id = id;
 	}
 

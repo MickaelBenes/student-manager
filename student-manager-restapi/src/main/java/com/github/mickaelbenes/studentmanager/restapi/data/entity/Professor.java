@@ -1,7 +1,7 @@
 package com.github.mickaelbenes.studentmanager.restapi.data.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +22,7 @@ public class Professor extends Person {
 	private String	password;
 	
 	@OneToMany( mappedBy = "professor" )
-	private Set<Student> students = new HashSet<>();
+	private List<Student> students = new ArrayList<>();
 	
 	public Professor( String username, String password, String firstName, String lastName ) {
 		super( firstName, lastName );
@@ -52,11 +52,11 @@ public class Professor extends Person {
 		this.password = password;
 	}
 
-	public Set<Student> getStudents() {
+	public List<Student> getStudents() {
 		return students;
 	}
 
-	public void setStudents( Set<Student> students ) {
+	public void setStudents( List<Student> students ) {
 		this.students = students;
 	}
 	

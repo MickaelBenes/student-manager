@@ -66,12 +66,12 @@ public class StudentRestControllerTest {
 	private WebApplicationContext webApplicationContext;
 
 	@Autowired
-	void setConverters(HttpMessageConverter<?>[] converters) {
-		this.mappingJackson2HttpMessageConverter = Arrays.asList(converters)
+	void setConverters( HttpMessageConverter<?>[] converters ) {
+		this.mappingJackson2HttpMessageConverter = Arrays.asList( converters )
 				.stream()
-				.filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
+				.filter( hmc -> hmc instanceof MappingJackson2HttpMessageConverter )
 				.findAny()
-				.orElse(null);
+				.orElse( null );
 
 		assertNotNull( "the JSON message converter must not be null", this.mappingJackson2HttpMessageConverter );
 	}
@@ -123,9 +123,9 @@ public class StudentRestControllerTest {
 		mockMvc.perform( get("/" + USERNAME + "/students/" + this.studentList.get(0).getId()) )
 				.andExpect( status().isOk() )
 				.andExpect( content().contentType( contentType) )
-				.andExpect( jsonPath( "$.id", is(this.studentList.get(0).getId().intValue())) )
-				.andExpect( jsonPath( "$.firstName", is(STUDENT1_FIRSTNAME)) )
-				.andExpect( jsonPath( "$.lastName", is(STUDENT1_FIRSTNAME)))
+				.andExpect( jsonPath("$.id", is(this.studentList.get(0).getId().intValue())) )
+				.andExpect( jsonPath("$.firstName", is(STUDENT1_FIRSTNAME)) )
+				.andExpect( jsonPath("$.lastName", is(STUDENT1_FIRSTNAME)))
 				.andExpect( jsonPath("$.skills[0].name", is(STUDENT1_SKILL1_NAME)) )
 				.andExpect( jsonPath("$.skills[0].level", is(STUDENT1_SKILL1_LEVEL)) )
 				.andExpect( jsonPath("$.skills[1].name", is(STUDENT1_SKILL2_NAME)) )
@@ -141,13 +141,16 @@ public class StudentRestControllerTest {
 				.andExpect( jsonPath("$[0].id", is(this.studentList.get(0).getId().intValue())) )
 				.andExpect( jsonPath("$[0].firstName", is(STUDENT1_FIRSTNAME)) )
 				.andExpect( jsonPath("$[0].lastName", is(STUDENT1_LASTNAME)) )
+				.andExpect( jsonPath("$[0].skills[0].id", is(this.studentList.get(0).getSkills().get(0).getId().intValue())) )
 				.andExpect( jsonPath("$[0].skills[0].name", is(STUDENT1_SKILL1_NAME)) )
 				.andExpect( jsonPath("$[0].skills[0].level", is(STUDENT1_SKILL1_LEVEL)) )
+				.andExpect( jsonPath("$[0].skills[1].id", is(this.studentList.get(0).getSkills().get(1).getId().intValue())) )
 				.andExpect( jsonPath("$[0].skills[1].name", is(STUDENT1_SKILL2_NAME)) )
 				.andExpect( jsonPath("$[0].skills[1].level", is(STUDENT1_SKILL2_LEVEL)) )
 				.andExpect( jsonPath("$[1].id", is(this.studentList.get(1).getId().intValue())) )
 				.andExpect( jsonPath("$[1].firstName", is(STUDENT2_FIRSTNAME)) )
 				.andExpect( jsonPath("$[1].lastName", is(STUDENT2_LASTNAME)) )
+				.andExpect( jsonPath("$[1].skills[0].id", is(this.studentList.get(1).getSkills().get(0).getId().intValue())) )
 				.andExpect( jsonPath("$[1].skills[0].name", is(STUDENT2_SKILL1_NAME)) )
 				.andExpect( jsonPath("$[1].skills[0].level", is(STUDENT2_SKILL1_LEVEL)) );
 	}
