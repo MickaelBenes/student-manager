@@ -1,6 +1,7 @@
 package com.github.mickaelbenes.studentmanager.restapi.controller;
 
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ import com.github.mickaelbenes.studentmanager.restapi.data.resource.StudentResou
 import com.github.mickaelbenes.studentmanager.restapi.exception.ProfessorNotFoundException;
 
 @RestController
-@RequestMapping( "/{profId}/students" )
+@RequestMapping( "/students" )
 public class StudentRestController {
 	
 	private final ProfessorRepository	professorRepo;
@@ -38,10 +39,10 @@ public class StudentRestController {
 	}
 	
 	@RequestMapping( method = RequestMethod.GET )
-	public Resources<StudentResource> getStudents( @PathVariable String profId ) {
-		this.validateProfessor( profId );
+	public Resources<StudentResource> getStudents( Principal principal ) {
+		this.validateProfessor( principal );
 		
-		List<StudentResource> studentResourceList = this.studentRepo.findByProfessorUsername( profId )
+		List<StudentResource> studentResourceList = this.studentRepo.findByProfessorUsername( principal.getName() )
 				.stream()
 				.map( StudentResource::new )
 				.collect( Collectors.toList() );
@@ -50,17 +51,17 @@ public class StudentRestController {
 	}
 
 	@RequestMapping( method = RequestMethod.GET, value = "/{studentId}" )
-	public StudentResource getStudent( @PathVariable String profId, @PathVariable Long studentId ) {
-		this.validateProfessor( profId );
+	public StudentResource getStudent( Principal principal, @PathVariable Long studentId ) {
+		this.validateProfessor( principal );
 		
 		return new StudentResource( this.studentRepo.findOne(studentId) );
 	}
 	
 	@RequestMapping( method = RequestMethod.POST )
-	ResponseEntity<?> addStudent( @PathVariable String profId, @RequestBody Student input ) {
-		this.validateProfessor( profId );
+	ResponseEntity<?> addStudent( Principal principal, @RequestBody Student input ) {
+		this.validateProfessor( principal );
 		
-		return this.professorRepo.findByUsername( profId )
+		return this.professorRepo.findByUsername( principal.getName() )
 				.map(prof -> {
 					Student result	= this.studentRepo.save( new Student(prof, input.getFirstName(), input.getLastName()) );
 					if ( input.hasSkills() ) {
@@ -78,12 +79,12 @@ public class StudentRestController {
 	}
 
 	@RequestMapping( method = RequestMethod.POST, value = "/{studentId}" )
-	public ResponseEntity<?> addSkillToStudent( @PathVariable String profId, @PathVariable Long studentId, @RequestBody Skill input ) {
-		this.validateProfessor( profId );
+	public ResponseEntity<?> addSkillToStudent( Principal principal, @PathVariable Long studentId, @RequestBody Skill input ) {
+		this.validateProfessor( principal );
 		Student student = this.studentRepo.findOne( studentId );
 		
 		return this.professorRepo
-				.findByUsername( profId )
+				.findByUsername( principal.getName() )
 				.map(prof -> {
 					this.skillRepo.save( new Skill(student, input.getName(), input.getLevel()) );
 					
@@ -94,10 +95,12 @@ public class StudentRestController {
 				.orElse( ResponseEntity.noContent().build() );
 	}
 	
-	private void validateProfessor( String profId ) {
+	private void validateProfessor( Principal principal ) {
+		String profUsername	= principal.getName();
+		
 		this.professorRepo
-			.findByUsername( profId )
-			.orElseThrow( () -> new ProfessorNotFoundException(profId) );
+			.findByUsername( profUsername )
+			.orElseThrow( () -> new ProfessorNotFoundException(profUsername) );
 	}
 
 }

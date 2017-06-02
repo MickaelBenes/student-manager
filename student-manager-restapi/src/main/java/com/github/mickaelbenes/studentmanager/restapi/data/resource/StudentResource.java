@@ -22,7 +22,7 @@ public class StudentResource extends ResourceSupport {
 		this.add( linkTo(StudentRestController.class, username).withRel("students") );
 		this.add( linkTo(
 				methodOn( StudentRestController.class, username )
-				.getStudent( username, this.student.getId() )
+				.getStudent( null, this.student.getId() )
 			).withSelfRel()
 		);
 	}
