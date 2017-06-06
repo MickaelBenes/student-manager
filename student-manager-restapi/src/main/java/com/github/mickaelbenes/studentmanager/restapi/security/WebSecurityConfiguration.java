@@ -25,11 +25,11 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
 	}
 	
 	@Bean
-	private UserDetailsService userDetailsService() {
+	UserDetailsService userDetailsService() {
 		return username -> this.profRepo.findByUsername( username )
 				.map(p -> new User(
 					p.getUsername(), p.getPassword(), true, true, true, true,
-					AuthorityUtils.createAuthorityList("USER", "write")
+					AuthorityUtils.createAuthorityList( "USER", "write" )
 				))
 				.orElseThrow( () -> {
 					RuntimeException ex = new ProfessorNotFoundException( username );
